@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import TextInput from "./TextInput.vue";
 
-const { model } = defineProps({
+const { model, tmpDatas } = defineProps({
     model: {
         type: String,
         required: false
@@ -10,6 +10,9 @@ const { model } = defineProps({
     isAuto: {
         type: Boolean,
         required: false
+    },
+    tmpDatas: {
+        type: Array
     }
 });
 
@@ -109,26 +112,7 @@ $(document).ready(function () {
         $("#auto_search").hide();
         $("#auto_spin").show();
     }
-    const datas = [
-        {
-            value: "jquery",
-            label: "jQuery",
-            desc: "the write less, do more, JavaScript library",
-            icon: "jquery_32x32.png"
-        },
-        {
-            value: "jquery-ui",
-            label: "jQuery UI",
-            desc: "the official user interface library for jQuery",
-            icon: "jqueryui_32x32.png"
-        },
-        {
-            value: "sizzlejs",
-            label: "Sizzle JS",
-            desc: "a pure-JavaScript CSS selector engine",
-            icon: "sizzlejs_32x32.png"
-        }
-    ];
+
     $("input[model=auto_tags]").autocomplete({
         minLength: 3,
         source: function (request, response) {
@@ -136,7 +120,9 @@ $(document).ready(function () {
             autoloading();
 
             setTimeout(function () {
-                response(datas.filter((list) => ((list.label).toLowerCase()).includes(term.toLowerCase())));
+                console.log(tmpDatas);
+
+                response(tmpDatas.filter((list) => ((list.name).toLowerCase()).includes(term.toLowerCase())));
             }, 1500);
         },
         search: function () {
@@ -147,17 +133,17 @@ $(document).ready(function () {
             $("#auto_search").show();
         },
         focus: function (event, ui) {
-            $(this).val(ui.item.label);
+            $(this).val(ui.item.name);
             return false;
         },
         select: function (event, ui) {
-            $(this).val(ui.item.label);
+            $(this).val(ui.item.name);
             return false;
         }
     }).autocomplete("instance")._renderItem = function (ul, item) {
-        const { label, desc } = item;
+        const { name, username, email } = item;
         return $("<li>")
-            .append(`<div>${label} </br> ${desc}</div>`)
+            .append(`<div>Nama: ${name} </br> Username: ${username} </br> Email: ${email}</div>`)
             .appendTo(ul);
     };
     // AUTOCOMPLETE SECTON END
@@ -166,7 +152,7 @@ $(document).ready(function () {
 
 <template>
     <div class="autocomplete-wrapper">
-        <TextInput modelValue="" :model="model" />
+        <TextInput ref="modif" modelValue="" :model="model" />
         <span v-if="isAuto" class="icon">
             <i id="auto_spin" class="fas fa-spinner fa-spin"></i>
             <i id="auto_search" class="fas fa-search"></i>
@@ -205,10 +191,10 @@ input {
 }
 </style>
 
-<!-- 
+<!--
 <ModifyInput model="set_datepicker"></ModifyInput>
 <ModifyInput model="set_date"></ModifyInput>
 <ModifyInput model="set_datetime"></ModifyInput>
 <ModifyInput model="set_time"></ModifyInput>
-<ModifyInput model="auto_tags" :isAuto="true"></ModifyInput> 
+<ModifyInput model="auto_tags" :isAuto="true"></ModifyInput>
 -->
