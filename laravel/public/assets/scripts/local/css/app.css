@@ -1,5 +1,38 @@
-@import url('../../vendor/font-awesome/all.min.css');
-@import url('../../vendor/jquery/jquery-ui.css');
-@import url('../../vendor/jquery/jquery.datetimepicker.css');
-@import url('../../vendor/noty/noty.min.css');
-@import url('../../vendor/tostr/toastr.min.css');
+@import url("../../vendor/font-awesome/all.min.css");
+@import url("../../vendor/jquery/jquery-ui.css");
+@import url("../../vendor/jquery/jquery.datetimepicker.css");
+@import url("../../vendor/noty/noty.min.css");
+@import url("../../vendor/tostr/toastr.min.css");
+
+* {
+    font-size: 16px !important;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h6 {
+    font-size: 18px !important;
+}
+
+h5 {
+    font-size: 20px !important;
+}
+
+h4 {
+    font-size: 24px !important;
+}
+
+h3 {
+    font-size: 28px !important;
+}
+
+h2 {
+    font-size: 30px !important;
+}
+
+h1 {
+    font-size: 34px !important;
+}
+
+#app {
+    width: 100%;
+}
